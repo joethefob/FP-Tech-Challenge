@@ -9,6 +9,12 @@ var db          = require('../config/db').connection;
 
 // API endpoint for /api/apparel
 api.get('/api/apparel/:styleCode?', function(req, res) {
+	var data;
+	db.query('SELECT style_code, color_codes, size_codes FROM apparel', function(err, rows, fields) {
+		if (err) throw err;
+
+		res.send(rows);
+	});
 	// Insert Apparel API code here
 
 });
@@ -16,7 +22,6 @@ api.get('/api/apparel/:styleCode?', function(req, res) {
 // API endpoint for /api/quote
 api.post('/api/quote', function(req, res) {
 	// Insert Quoting API code here
-
 });
 
 // Function for making an Inventory API call
