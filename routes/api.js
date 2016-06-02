@@ -9,15 +9,17 @@ var db          = require('../config/db').connection;
 
 // API endpoint for /api/apparel
 api.get('/api/apparel/:styleCode?', function(req, res) {
-	var data;
-	db.query('SELECT style_code, color_codes, size_codes FROM apparel', function(err, rows, fields) {
-		if (err) throw err;
+	var styleCode = req.params["styleCode"];
 
-		res.send(rows);
-	});
-	// Insert Apparel API code here
-
+	if (typeof styleCode === "undefined") {
+		db.query('SELECT id, brand, style_code FROM apparel', function(err, rows, fields) {
+			if (err) throw err;
+			res.send(rows);
+		});
+	}
 });
+
+// API endpoint for 
 
 // API endpoint for /api/quote
 api.post('/api/quote', function(req, res) {

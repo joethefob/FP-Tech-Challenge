@@ -6,15 +6,20 @@ html.
 		<title>Fresh Prints Tech Challenge</title>
 		<link rel="stylesheet" href="/css/app.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	</head>
-	<body>
-		<div ng-controller="AppCtrl" ng-cloak></div>
-			<!-- INSERT HTML CODE HERE -->
-			<h2> FRESH PRINTS TECH CHALLENGE </h2>
+		
 		<script src="js/lib/angular/angular.js"></script>
 		<script src="js/app.js"></script>
 		<script src="js/services.js"></script>
 		<script src="js/controllers.js"></script>
 		<script src="js/filters.js"></script>
 		<script src="js/directives.js"></script>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="AppCtrl" ng-cloak>
+			<!-- INSERT HTML CODE HERE -->
+			<h2> FRESH PRINTS TECH CHALLENGE </h2>
+			<select name="styles" id="styles" ng-model="data.selectedStyle">
+				<option ng-repeat="option in data.availableStyles" value="{{option.style_code}}">{{option.brand}}</option>
+			</select>
+		</div>
 	</body>
