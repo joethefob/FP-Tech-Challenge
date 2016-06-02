@@ -21,5 +21,13 @@ html.
 			<select name="styles" id="styles" ng-model="data.selectedStyle">
 				<option ng-repeat="option in data.availableStyles" value="{{option.style_code}}">{{option.brand}}</option>
 			</select>
+
+			<select name="colours" id="colours" ng-model="data.selectedColour">
+				<option ng-repeat="option in data.availableColours" value="{{option.colour_code}}">{{option.name}}</option>
+			</select>
+
+			<select name="sizes" id="sizes" ng-model="data.selectedSize">
+				<option ng-repeat="option in data.availableSizes" value="{{option.size_code}}">{{option.size}}</option>
+			</select>
 		</div>
 	</body>
