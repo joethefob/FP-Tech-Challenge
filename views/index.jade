@@ -31,9 +31,14 @@ html.
 					<option ng-repeat="option in data.availableSizes" value="{{option.size_code}}">{{option.size}}</option>
 				</select>
 
-				<input name="weight" id="weight" type="number" ng-model="data.weight" readonly />
+				<p>{{data.weight}}</p>
 				<input name="amount" id="amount" type="text" ng-model="userInput.amount" />
 				<input type="submit" ng-click="getQuote(userInput)" value="Get Quote" />
+				<p>{{data.price}}</p>
+				<p>{{data.order_cost}}</p>
+				<p>{{data.sales_comp}}</p>
+				<p>{{data.markup}}</p>
+				<p>{{data.final_cost}}</p>
 			</form>
 		</div>
 	</body>
