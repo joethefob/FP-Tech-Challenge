@@ -6,6 +6,8 @@ var https       = require('https');
 var q           = require('q');
 var api         = express.Router();
 var db          = require('../config/db').connection;
+var parseXml 	= require('xml2js').parseString;
+var querystring = require('querystring');
 
 function parseColourCodes(colour_code_str) {
 	var colours = [];
@@ -42,7 +44,7 @@ api.get('/api/apparel/:styleCode?', function(req, res) {
 	} 
 	// Otherwise, send back a list of colour codes and size codes
 	else {
-		db.query("SELECT color_codes, size_codes FROM apparel WHERE apparel.style_code='" + styleCode + "'", function(err, rows, fields) {
+		db.query("SELECT color_codes, size_codes, weight FROM apparel WHERE apparel.style_code='" + styleCode + "'", function(err, rows, fields) {
 			if (err) throw err;
 
 			if (rows.length < 1) {
@@ -51,7 +53,8 @@ api.get('/api/apparel/:styleCode?', function(req, res) {
 			} else {
 				res.send({
 					"colours": parseColourCodes(rows[0].color_codes),
-					"sizes": parseSizeCodes(rows[0].size_codes)
+					"sizes": parseSizeCodes(rows[0].size_codes),
+					"weight": rows[0].weight
 				});
 			}
 		});
@@ -61,23 +64,44 @@ api.get('/api/apparel/:styleCode?', function(req, res) {
 // API endpoint for /api/quote
 api.post('/api/quote', function(req, res) {
 	// Insert Quoting API code here
+	console.log(req.body);
+	var quote = getApparelPrice(req.body['style_code'], req.body['colour_code'], req.body['size_code']);
+	quote.then(function(price) {
+		console.log(price);
+		res.send(price);
+	}, function(reason) {
+		console.log(reason);
+	});
 });
 
 // Function for making an Inventory API call
-var getApparelPrice = function getPrice(style_code, color_code, size_code) {
+var getApparelPrice = function getPrice(style_code, colour_code, size_code) {
 	var	apparelPriceDeferred = q.defer();
-
-	// Format the Inventory API endpoint as explained in the documentation
-	https.get('// INSERT INVENTORY API END POINT', function(res) {
-		res.on('data', function (data) {
-			// Parse response XML data here
-
-		});
-	}).on('error', function(error) {
-		// Handle EDI call errors here
-
+	var str = "";
+	var data = querystring.stringify({
+		"sr": style_code,
+		"cc": colour_code,
+		"sc": size_code,
+		"username": "triggered1111",
+		"password": "triggered2222",
+		"pr": "y",
+		"zp": "10002",
 	});
 
+	var fullPath = 'https://www.alphashirt.com/cgi-bin/online/xml/inv-request.w?' + data;
+	https.get(fullPath, function(res) {
+		res.on('data', function(data) {
+			str += data;
+		});
+
+		res.on('end', function() {
+			parseXml(str, function(err, result) {
+				apparelPriceDeferred.resolve(result["inv-balance"]["item"][0]["$"]["price"].substring(1));
+			});
+		});
+	}).on('error', function(error) {
+		apparelPriceDeferred.reject(error);
+	});
 	return apparelPriceDeferred.promise;
 }
 

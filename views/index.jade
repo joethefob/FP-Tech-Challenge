@@ -16,18 +16,24 @@ html.
 	</head>
 	<body ng-app="myApp">
 		<div ng-controller="AppCtrl" ng-cloak>
-			<!-- INSERT HTML CODE HERE -->
-			<h2> FRESH PRINTS TECH CHALLENGE </h2>
-			<select name="styles" id="styles" ng-model="data.selectedStyle">
-				<option ng-repeat="option in data.availableStyles" value="{{option.style_code}}">{{option.brand}}</option>
-			</select>
+			<form>
+				<!-- INSERT HTML CODE HERE -->
+				<h2> FRESH PRINTS TECH CHALLENGE </h2>
+				<select name="styles" id="styles" ng-model="userInput.selectedStyle">
+					<option ng-repeat="option in data.availableStyles" value="{{option.style_code}}">{{option.brand}}</option>
+				</select>
 
-			<select name="colours" id="colours" ng-model="data.selectedColour">
-				<option ng-repeat="option in data.availableColours" value="{{option.colour_code}}">{{option.name}}</option>
-			</select>
+				<select name="colours" id="colours" ng-model="userInput.selectedColour">
+					<option ng-repeat="option in data.availableColours" value="{{option.colour_code}}">{{option.name}}</option>
+				</select>
 
-			<select name="sizes" id="sizes" ng-model="data.selectedSize">
-				<option ng-repeat="option in data.availableSizes" value="{{option.size_code}}">{{option.size}}</option>
-			</select>
+				<select name="sizes" id="sizes" ng-model="userInput.selectedSize">
+					<option ng-repeat="option in data.availableSizes" value="{{option.size_code}}">{{option.size}}</option>
+				</select>
+
+				<input name="weight" id="weight" type="number" ng-model="data.weight" readonly />
+				<input name="amount" id="amount" type="text" ng-model="userInput.amount" />
+				<input type="submit" ng-click="getQuote(userInput)" value="Get Quote" />
+			</form>
 		</div>
 	</body>
