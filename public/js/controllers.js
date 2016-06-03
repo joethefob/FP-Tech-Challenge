@@ -35,9 +35,9 @@ angular.module('myApp.controllers', [])
             };
             console.log(req);
             $http.post("/api/quote", req).then(function(response) {
-                var price = JSON.parse(response.data);
+                var price = Number(JSON.parse(response.data));
                 var order_cost = price * userInput.amount;
-                var shipping_cost = getShippingCost();
+                var shipping_cost = Number(getShippingCost());
                 var sales_comp = 0.07 * (order_cost + shipping_cost);
                 var markup = 0;
                 if (order_cost <= 800) {
