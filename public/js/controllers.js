@@ -10,6 +10,7 @@ angular.module('myApp.controllers', [])
             weight: null,
             price: null,
             order_cost: null,
+            shipping_cost: null,
             sales_comp: null,
             markup: null,
             final_cost: null,
@@ -36,18 +37,20 @@ angular.module('myApp.controllers', [])
             $http.post("/api/quote", req).then(function(response) {
                 var price = JSON.parse(response.data);
                 var order_cost = price * userInput.amount;
-                var sales_comp = 0.07 * (order_cost + getShippingCost());
+                var shipping_cost = getShippingCost();
+                var sales_comp = 0.07 * (order_cost + shipping_cost);
                 var markup = 0;
                 if (order_cost <= 800) {
                     markup = 0.5 * order_cost;
                 } else {
                     markup = 0.45 * order_cost;
                 }
-                $scope.data.price = price;
-                $scope.data.order_cost = order_cost;
-                $scope.data.sales_comp = sales_comp;
-                $scope.data.markup = markup;
-                $scope.data.final_cost = price + order_cost + sales_comp + markup;
+                $scope.data.price = price.toFixed(2);
+                $scope.data.order_cost = order_cost.toFixed(2);
+                $scope.data.shipping_cost = shipping_cost.toFixed(2);
+                $scope.data.sales_comp = sales_comp.toFixed(2);
+                $scope.data.markup = markup.toFixed(2);
+                $scope.data.final_cost = (price + order_cost + sales_comp + markup).toFixed(2);
             });
         }
 

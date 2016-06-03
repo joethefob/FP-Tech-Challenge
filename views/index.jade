@@ -15,30 +15,116 @@ html.
 		<script src="js/directives.js"></script>
 	</head>
 	<body ng-app="myApp">
-		<div ng-controller="AppCtrl" ng-cloak>
-			<form>
-				<!-- INSERT HTML CODE HERE -->
-				<h2> FRESH PRINTS TECH CHALLENGE </h2>
-				<select name="styles" id="styles" ng-model="userInput.selectedStyle">
-					<option ng-repeat="option in data.availableStyles" value="{{option.style_code}}">{{option.brand}}</option>
-				</select>
+		<div class="container" ng-controller="AppCtrl" ng-cloak>
+			<form class="form-horizontal">
+				<h2>FRESH PRINTS TECH CHALLENGE</h2>
 
-				<select name="colours" id="colours" ng-model="userInput.selectedColour">
-					<option ng-repeat="option in data.availableColours" value="{{option.colour_code}}">{{option.name}}</option>
-				</select>
+				<div class="form-group">
+					<label for="styles" class="col-md-2 control-label">List of Styles</label>
+					<div class="col-md-10">
+						<select name="styles" id="styles" class="form-control" ng-model="userInput.selectedStyle">
+							<option ng-repeat="option in data.availableStyles" value="{{option.style_code}}">{{option.brand}}</option>
+						</select>
+					</div>
+				</div>
 
-				<select name="sizes" id="sizes" ng-model="userInput.selectedSize">
-					<option ng-repeat="option in data.availableSizes" value="{{option.size_code}}">{{option.size}}</option>
-				</select>
+				<div class="form-group">
+					<label for="colours" class="col-md-2 control-label">List of Colours</label>
+					<div class="col-md-10">
+						<select name="colours" id="colours" class="form-control" ng-model="userInput.selectedColour">
+							<option ng-repeat="option in data.availableColours" value="{{option.colour_code}}">{{option.name}}</option>
+						</select>
+					</div>
+				</div>
 
-				<p>{{data.weight}}</p>
-				<input name="amount" id="amount" type="text" ng-model="userInput.amount" />
-				<input type="submit" ng-click="getQuote(userInput)" value="Get Quote" />
-				<p>{{data.price}}</p>
-				<p>{{data.order_cost}}</p>
-				<p>{{data.sales_comp}}</p>
-				<p>{{data.markup}}</p>
-				<p>{{data.final_cost}}</p>
+				<div class="form-group">
+					<label for="sizes" class="col-md-2 control-label">List of Sizes</label>
+					<div class="col-md-10">
+						<select name="sizes" id="sizes" class="form-control" ng-model="userInput.selectedSize">
+							<option ng-repeat="option in data.availableSizes" value="{{option.size_code}}">{{option.size}}</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="weight" class="col-md-2 control-label">Weight</label>
+					<div class="col-md-10">
+						<input name="amount" id="amount" class="form-control" type="number" type="number" ng-model="data.weight" readonly />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="Amount" class="col-md-2 control-label">Amount</label>
+					<div class="col-md-10">
+						<input name="amount" id="amount" class="form-control" type="text" ng-model="userInput.amount" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-10">
+						<button type="submit" class="btn btn-default" ng-click="getQuote(userInput)">Get Quote</button>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="weight" class="col-md-2 control-label">Price</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<div class="input-group-addon">$</div>
+							<input name="amount" id="amount" class="form-control" type="text" type="number" ng-model="data.price" readonly />
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="weight" class="col-md-2 control-label">Order Cost</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<div class="input-group-addon">$</div>
+							<input name="amount" id="amount" class="form-control" type="text" type="number" ng-model="data.order_cost" readonly />
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="weight" class="col-md-2 control-label">Shipping Cost</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<div class="input-group-addon">$</div>
+							<input name="amount" id="amount" class="form-control" type="text" type="number" ng-model="data.shipping_cost" readonly />
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="weight" class="col-md-2 control-label">Sales Compensation</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<div class="input-group-addon">$</div>
+							<input name="amount" id="amount" class="form-control" type="text" type="number" ng-model="data.sales_comp" readonly />
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="weight" class="col-md-2 control-label">Markup</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<div class="input-group-addon">$</div>
+							<input name="amount" id="amount" class="form-control" type="text" type="number" ng-model="data.markup" readonly />
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="weight" class="col-md-2 control-label">Final Cost</label>
+					<div class="col-md-10">
+						<div class="input-group">
+							<div class="input-group-addon">$</div>
+							<input name="amount" id="amount" class="form-control" type="text" type="number" ng-model="data.final_cost" readonly />
+						</div>
+					</div>
+				</div>
 			</form>
 		</div>
 	</body>
